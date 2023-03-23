@@ -43,5 +43,8 @@ function fillAll() {
 
 // Clear all cells
 function clearAll() {
-    alert("Clicked Clear All"); // Replace this line with your code.
+    let captureGrid = document.getElementById("grid");
+    //console.log(captureGrid);
+    captureGrid.innerHTML = ''; // clear all cells' 
+    // ? restore all cells to their initial color (e.g., white)
 }
