@@ -6,37 +6,10 @@ let colorSelected;
 let testVar = 0;
 
 
-// function initializeGrid() {
-//     if (numRows === 0 && numCols === 0) {
-//         let myGrid = document.getElementById("grid");
-//         let myTr = document.createElement("tr"); // create a tr element
-//         myTr.setAttribute("class", "myRows");
-//         let myTd = document.createElement("td"); // create a td element
-//         myTd.setAttribute("class", "myCols");
-//         myTr.appendChild(myTd); // tr > td
-//         document.getElementById("grid").appendChild(myTr); // add it under grid
-//         numRows = 1;
-//         numCols = 1;
-//     }
-
-// }
 
 // Add a row
 function addR() {
-    // if (numRows === 0 && numCols === 0)
-    //     initializeGrid();
-    // else {
-    //     //afterwards copy previous tr and it after the tr
-    //     let myGrid = document.getElementById("grid") // get the table
-    //     let lastRow = myGrid.insertRow(-1); // add tr and capture
-    //     let rowSize = document.getElementsByTagName("tr").length
-    //     let newRow = myGrid.insertRow(-1); // add tr and capture
-    //     //let newCell = newRow.insertCell(0); // add td into tr and capture
-    //     for (let i = 0; i < numCols; i++) {
-    //         newRow.insertCell(i); // add td into tr and capture
-    //     }
-    //     numRows = numRows + 1;
-    // }
+
     let tableRef = document.getElementById("grid");
     // Insert a row at the end of the table
     let newRow = tableRef.insertRow(-1);
@@ -75,21 +48,32 @@ function addC() {
 
 // Remove a row
 function removeR() {
-    //alert("Clicked Remove Row"); // Replace this line with your code.
-    // let myGrid = document.getElementById("grid")
-    // let newRow = myGrid.insertRow(-1); // add tr and capture
-    // let newCell = newRow.insertCell(0); // add td into tr and capture
+    if (numRows !== 0) {
+        let table = document.querySelector("table");
+        table.deleteRow(-1);
+        numRows = numRows - 1
+        if (numRows === 0) {
+            clearAll();
+        }
+    }
 
-    let myGrid = document.getElementById("grid")
-    let newRow = myGrid.insertRow(-1); // add tr and capture
-    let newCell = newRow.insertCell(0); // add td into tr and capture
-    newRow.insertCell(0);
-    newRow.insertCell(0);
 }
 
 // Remove a column
 function removeC() {
-    alert("Clicked Remove Col"); // Replace this line with your code.
+    //alert("Clicked Remove Col"); // Replace this line with your code.
+    if (numCols !== 0) {
+        let myRows = document.getElementsByTagName("tr")
+        for (let i = 0; i < numRows; i++) {
+            //let myTd = document.createElement("td");
+            myRows[i].deleteCell(-1);
+        }
+        numCols = numCols - 1
+        if (numCols === 0) {
+            clearAll();
+        }
+    }
+
 }
 
 // Set global variable for selected color
