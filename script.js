@@ -17,7 +17,12 @@ function addR() {
         numCols = 1;
     // Insert a cell in the row at index 0
     for (let i = 0; i < numCols; i++) {
-        newRow.insertCell(0);
+        let td = newRow.insertCell(0);
+        td.style.backgroundColor = 'white';
+        td.addEventListener("click", function () {
+            td.style.backgroundColor = colorSelected;
+        });
+        //td.setAttribute("onclick", "fillS()");
     }
     //let newCell = newRow.insertCell(0);
     numRows = numRows + 1;
@@ -40,7 +45,11 @@ function addC() {
         let lastRow = document.getElementsByTagName("tr")
         for (let i = 0; i < numRows; i++) {
             //let myTd = document.createElement("td");
-            lastRow[i].insertCell(0);
+            let td = lastRow[i].insertCell(-1);
+            td.style.backgroundColor = 'white';
+            td.addEventListener("click", function () {
+                td.style.backgroundColor = colorSelected;
+            });
         }
 
     }
@@ -79,17 +88,27 @@ function removeC() {
 // Set global variable for selected color
 function selectColor() {
     colorSelected = document.getElementById("selectedColorId").value;
-    console.log(colorSelected);
 }
+
 
 // Fill all uncolored cells
 function fillU() {
-    alert("Clicked Fill All Uncolored"); // Replace this line with your code.
+    //alert("Clicked Fill All Uncolored"); // Replace this line with your code.
+    let captureGrid = document.getElementById("grid");
+    let children = captureGrid.getElementsByTagName("td");
+    for (let child of children) {
+        if (child.style.backgroundColor === 'white')
+            child.style.backgroundColor = colorSelected;
+    }
 }
 
 // Fill all cells
 function fillAll() {
-    alert("Clicked Fill All"); // Replace this line with your code.
+    let captureGrid = document.getElementById("grid");
+    let children = captureGrid.getElementsByTagName("td");
+    for (let child of children) {
+        child.style.backgroundColor = colorSelected;
+    }
 }
 
 // Clear all cells
