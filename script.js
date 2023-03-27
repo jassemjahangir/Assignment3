@@ -1,7 +1,7 @@
 // Declare global variables
 let numRows = 0;
 let numCols = 0;
-let colorSelected;
+let colorSelected = null;
 
 let testVar = 0;
 
@@ -38,7 +38,11 @@ function addC() {
     if (numRows === 0) {
         numRows = 1;
         let newRow = tableRef.insertRow(-1);
-        newRow.insertCell(0);
+        let td = newRow.insertCell(0);
+        td.style.backgroundColor = 'white';
+        td.addEventListener("click", function () {
+            td.style.backgroundColor = colorSelected;
+        });
     }
     else {
         tableRef = document.getElementById("grid");
@@ -62,7 +66,7 @@ function removeR() {
         table.deleteRow(-1);
         numRows = numRows - 1
         if (numRows === 0) {
-            clearAll();
+            deleteAll();
         }
     }
 
@@ -79,7 +83,7 @@ function removeC() {
         }
         numCols = numCols - 1
         if (numCols === 0) {
-            clearAll();
+            deleteAll();
         }
     }
 
@@ -94,28 +98,43 @@ function selectColor() {
 // Fill all uncolored cells
 function fillU() {
     //alert("Clicked Fill All Uncolored"); // Replace this line with your code.
-    let captureGrid = document.getElementById("grid");
-    let children = captureGrid.getElementsByTagName("td");
-    for (let child of children) {
-        if (child.style.backgroundColor === 'white')
-            child.style.backgroundColor = colorSelected;
+    if (colorSelected !== null) {
+        let captureGrid = document.getElementById("grid");
+        let children = captureGrid.getElementsByTagName("td");
+        for (let child of children) {
+            if (child.style.backgroundColor === 'white')
+                child.style.backgroundColor = colorSelected;
+        }
     }
 }
 
 // Fill all cells
 function fillAll() {
-    let captureGrid = document.getElementById("grid");
-    let children = captureGrid.getElementsByTagName("td");
-    for (let child of children) {
-        child.style.backgroundColor = colorSelected;
+    if (colorSelected !== null) {
+        let captureGrid = document.getElementById("grid");
+        let children = captureGrid.getElementsByTagName("td");
+        for (let child of children) {
+            child.style.backgroundColor = colorSelected;
+        }
     }
 }
 
 // Clear all cells
 function clearAll() {
+    if (colorSelected !== null) {
+        let captureGrid = document.getElementById("grid");
+        let children = captureGrid.getElementsByTagName("td");
+        for (let child of children) {
+            child.style.backgroundColor = 'white';
+        }
+    }
+}
+
+// Delete all cells
+function deleteAll() {
     let captureGrid = document.getElementById("grid");
     //console.log(captureGrid);
-    captureGrid.innerHTML = ''; // clear all cells' 
+    captureGrid.innerHTML = ''; // delete all cells' 
     // ? restore all cells to their initial color (e.g., white)
     numRows = 0;
     numCols = 0;
